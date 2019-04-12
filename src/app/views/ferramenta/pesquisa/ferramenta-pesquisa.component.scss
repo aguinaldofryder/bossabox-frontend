@@ -1,0 +1,19 @@
+mat-list-item {
+    background-color: #ffffff;
+    margin: 12px;
+    border: solid 1px #DEDCE1;
+
+    .mat-line {
+        white-space: normal;
+    }
+}
+
+.top {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.btn-search {
+    margin-left: auto;
+}
