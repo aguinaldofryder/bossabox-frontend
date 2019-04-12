@@ -1,3 +1,41 @@
-<p>
-  ferramenta-pesquisa works!
-</p>
+<div class="container">
+  <div class="top">
+    <h1 col-12>VUTTR</h1>
+    <h3 col-12>Very Useful Tools to Remember</h3>
+    
+    <div row-wrap col-12>
+
+      <!-- Pesquisa -->
+      <mat-form-field col-4>
+        <mat-icon matPrefix>search</mat-icon>
+        <input 
+        matInput 
+        id="search"
+        placeholder="Search">
+      </mat-form-field>
+      
+      <!-- Pesquisar somente em tags -->
+      <mat-checkbox col-6>search in tags only</mat-checkbox>
+      
+      <!-- Adicionar ferramenta -->
+      <div col-2>
+        <button 
+          mat-raised-button
+          class="btn-search" 
+          (click)="addTool()">
+            <mat-icon matPrefix>add</mat-icon>
+            Add
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Lista de ferramentas -->
+  <mat-list>
+    <mat-list-item *ngFor="let tool of tools">
+      <h4 mat-line>{{tool.title}}</h4>
+      <p mat-line> {{tool.description}} </p>
+    </mat-list-item>
+  </mat-list>
+</div>

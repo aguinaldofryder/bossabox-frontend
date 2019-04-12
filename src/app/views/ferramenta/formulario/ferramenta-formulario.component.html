@@ -1,0 +1,59 @@
+<h1 mat-dialog-title>Add new tool</h1>
+<div mat-dialog-content >
+  <form row-wrap [formGroup]="form">
+    
+    <!-- Título -->
+    <mat-form-field col-12>
+      <input 
+      matInput 
+      id="title"
+      formControlName="title"
+      placeholder="Tool Name">
+      <mat-error>{{MESSAGES.FIELD.REQUIRED}}</mat-error>
+    </mat-form-field>
+
+    <!-- Link -->
+    <mat-form-field col-12>
+        <input 
+        matInput 
+        id="link"
+        formControlName="link"
+        placeholder="Tool Link">
+        <mat-error>{{MESSAGES.FIELD.REQUIRED}}</mat-error>
+      </mat-form-field>
+
+      <!-- Descrição -->
+    <mat-form-field col-12>
+      <textarea 
+        matInput 
+        [mat-autosize]="true"
+        [cdkAutosizeMinRows]="2"
+        [cdkAutosizeMaxRows]="5"
+        id="description"
+        formControlName="description"
+        placeholder="Tool description">
+      </textarea>
+      <mat-error>{{MESSAGES.FIELD.REQUIRED}}</mat-error>
+    </mat-form-field>
+
+    <!-- Tags -->
+    <mat-form-field col-12>
+      <mat-chip-list #chipList>
+        <mat-chip *ngFor="let tag of form.get('tags').value"
+          [removable]="true" 
+          (removed)="removeTag(tag)">
+            {{tag}}
+            <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+        <input placeholder="Tags"
+                [matChipInputFor]="chipList"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                [matChipInputAddOnBlur]="addOnBlur"
+                (matChipInputTokenEnd)="addTag($event)">
+      </mat-chip-list>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button cdkFocusInitial (click)="save()">Add tool</button>
+</div>
