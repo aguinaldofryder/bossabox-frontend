@@ -13,6 +13,10 @@ export class OpenDialogService {
         return this.showDialog({ title, message, type: MessageType.QUESTION_MESSAGE });
     }
 
+    showMessageDialog(message: string, title: string) {
+        return this.showDialog({ title, message, type: MessageType.INFORMATION_MESSAGE });
+    }
+
     private showDialog(data: DataDialog) {
         return this.dialog.open(ShowDialogComponent, { data }).afterClosed();
     }
