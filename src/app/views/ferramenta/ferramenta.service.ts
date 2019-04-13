@@ -1,6 +1,6 @@
-import { ToolModel } from './../../models/tool';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { ToolModel } from './../../models/tool';
 
 @Injectable()
 export class FerramentaService {
@@ -21,5 +21,15 @@ export class FerramentaService {
 
     remove(id: number) {
         return this.http.delete(`${this.urlBase}/${id}`);
+    }
+
+    searchByTitle(text: string) {
+        let params = new HttpParams().set('q', text);
+        return this.http.get(this.urlBase, { params });
+    }
+
+    searchByTag(text: string) {
+        let params = new HttpParams().set('tags_like', text);
+        return this.http.get(this.urlBase, { params });
     }
 }

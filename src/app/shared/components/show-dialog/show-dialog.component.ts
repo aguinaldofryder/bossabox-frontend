@@ -15,9 +15,7 @@ export class ShowDialogComponent implements OnInit {
         public dialogRef: MatDialogRef<ToolModel>
     ) { }
 
-    ngOnInit() { 
-        console.log(this.data)
-    }
+    ngOnInit() { }
 
     get isQuestion(): boolean {
         return MessageType.QUESTION_MESSAGE == this.data.type;
