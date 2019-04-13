@@ -1,0 +1,6 @@
+export enum MessageType {
+    ERROR_MESSAGE,
+    INFORMATION_MESSAGE,
+    WARNING_MESSAGE,
+    QUESTION_MESSAGE
+}
