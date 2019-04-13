@@ -1,3 +1,4 @@
+import { ToolModel } from './../../models/tool';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -12,5 +13,13 @@ export class FerramentaService {
 
     getTools() {
         return this.http.get(this.urlBase);
+    }
+
+    save(tool: ToolModel) {
+        return this.http.post(this.urlBase, tool);
+    }
+
+    remove(id: number) {
+        return this.http.delete(`${this.urlBase}/${id}`);
     }
 }

@@ -32,10 +32,16 @@
   </div>
 
   <!-- Lista de ferramentas -->
-  <mat-list>
-    <mat-list-item *ngFor="let tool of tools">
-      <h4 mat-line>{{tool.title}}</h4>
+  <div>
+    <div class="item" *ngFor="let tool of tools">
+      <div row-wrap>
+        <a class="title" [href]="tool.link">{{tool.title}}</a>
+        <button class="btn-remove" mat-button (click)="remove(tool.id)">remove</button>
+      </div>
       <p mat-line> {{tool.description}} </p>
-    </mat-list-item>
-  </mat-list>
+      <p mat-line class="tag">
+        <a *ngFor="let tag of tool.tags"> #{{tag}} </a>
+      </p>
+    </div>
+  </div>
 </div>

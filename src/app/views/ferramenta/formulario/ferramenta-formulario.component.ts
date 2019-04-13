@@ -1,3 +1,4 @@
+import { FerramentaService } from './../ferramenta.service';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
@@ -20,7 +21,8 @@ export class FerramentaFormularioComponent extends FormularioCrud implements OnI
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<ToolModel>) {
+    public dialogRef: MatDialogRef<ToolModel>,
+    private service: FerramentaService) {
       super();
       this.form = FormularioUtil.getForm();
   }
@@ -44,7 +46,9 @@ export class FerramentaFormularioComponent extends FormularioCrud implements OnI
 
   save() {
     if (FormValidator.validateForm(this.form)) {
-      this.dialogRef.close();
+      this.service.save(this.form.getRawValue()).subscribe(response => {
+        this.dialogRef.close();
+      })
     }
   }
 
