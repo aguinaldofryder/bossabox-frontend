@@ -37,7 +37,10 @@
     <div class="item" *ngFor="let tool of tools">
       <div row-wrap>
         <a class="title" [href]="tool.link">{{tool.title}}</a>
-        <button class="btn-remove" mat-button (click)="remove(tool.id)">remove</button>
+        <button class="btn-remove" mat-button (click)="remove(tool.id)">
+          <mat-icon>close</mat-icon>
+          remove
+        </button>
       </div>
       <p mat-line> {{tool.description}} </p>
       <p mat-line class="tag">
