@@ -6,7 +6,7 @@ import { OpenDialogService } from 'src/app/shared/components/show-dialog/open-di
 import { FormularioUnsubscribeUtil } from 'src/app/shared/formulario/form-unsubscribe-util';
 import { FerramentaService } from '../ferramenta.service';
 import { FerramentaFormularioComponent } from '../formulario/ferramenta-formulario.component';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, distinctUntilChanged, debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-ferramenta-pesquisa',
@@ -40,7 +40,11 @@ export class FerramentaPesquisaComponent extends FormularioUnsubscribeUtil imple
 
   ngOnInit() {
     this.initData();
-    this.controlSearch.valueChanges.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
+    this.controlSearch.valueChanges.pipe(
+        debounceTime(300),
+        distinctUntilChanged(),
+        takeUntil(this.unsubscribe)
+      ).subscribe(() => {
       this.search();
     })
   }
