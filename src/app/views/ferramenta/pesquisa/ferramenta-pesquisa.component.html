@@ -16,7 +16,7 @@
       </mat-form-field>
       
       <!-- Pesquisar somente em tags -->
-      <mat-checkbox col-6>search in tags only</mat-checkbox>
+      <mat-checkbox col-6 [formControl]="controlSearchTag">search in tags only</mat-checkbox>
       
       <!-- Adicionar ferramenta -->
       <div col-2 align="end">
@@ -44,7 +44,7 @@
       </div>
       <p mat-line> {{tool.description}} </p>
       <p mat-line class="tag">
-        <a *ngFor="let tag of tool.tags"> #{{tag}} </a>
+        <a *ngFor="let tag of tool.tags" [ngClass]="{selected: isTagFiltered(tag)}"> #{{tag}} </a>
       </p>
     </div>
   </div>

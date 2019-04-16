@@ -28,7 +28,7 @@ export class FerramentaPesquisaComponent extends FormularioUnsubscribeUtil imple
   /**
    * Controle do checkbox de busca por tag
    */
-  controlSearchTab: FormControl = new FormControl(false);
+  controlSearchTag: FormControl = new FormControl(false);
 
   constructor(
     private service: FerramentaService,
@@ -39,14 +39,23 @@ export class FerramentaPesquisaComponent extends FormularioUnsubscribeUtil imple
   }
 
   ngOnInit() {
+    //Busca todos os dados
     this.initData();
+
+    //Dispara pesquisa ao digitar valores no campo de pesquisa
     this.controlSearch.valueChanges.pipe(
         debounceTime(300),
         distinctUntilChanged(),
         takeUntil(this.unsubscribe)
       ).subscribe(() => {
       this.search();
-    })
+    });
+    //Dispara pesquisa ao marcar/desmarcar checkbox
+    this.controlSearchTag.valueChanges.pipe(
+      takeUntil(this.unsubscribe)
+    ).subscribe(() => {
+      this.search();
+    });
   }
 
   /**
@@ -70,6 +79,15 @@ export class FerramentaPesquisaComponent extends FormularioUnsubscribeUtil imple
   }
 
   /**
+   * Verifica se a tag é igual ao filtro informado
+   * 
+   * @param tag 
+   */
+  isTagFiltered(tag): boolean {
+    return this.controlSearch.value && tag.match(this.controlSearch.value + '.*');
+  }
+
+  /**
    * Exclui uma ferramenta
    */
   remove(id: number) {
@@ -87,10 +105,14 @@ export class FerramentaPesquisaComponent extends FormularioUnsubscribeUtil imple
    * Pesquisa per título ou tag
    */
   search() {
-    if (this.controlSearchTab.value) {
-      this.service.searchByTag(this.controlSearch.value).pipe(takeUntil(this.unsubscribe)).subscribe((result: ToolModel[]) => this.tools = result);
+    if (this.controlSearchTag.value) {
+      this.service.searchByTag(this.controlSearch.value)
+        .pipe(takeUntil(this.unsubscribe))
+        .subscribe((result: ToolModel[]) => this.tools = result);
     } else {
-      this.service.searchByTitle(this.controlSearch.value).pipe(takeUntil(this.unsubscribe)).subscribe((result: ToolModel[]) => this.tools = result);
+      this.service.searchByTitle(this.controlSearch.value)
+        .pipe(takeUntil(this.unsubscribe))
+        .subscribe((result: ToolModel[]) => this.tools = result);
     }
   }
 
